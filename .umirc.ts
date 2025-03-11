@@ -27,7 +27,6 @@ export default defineConfig({
       path: '/',
       component: './Home',
       routes: [
-        // { path: '/login', component: './Login' },
         { path: '/home', component: './Home' },
       ],
       layout: false,
