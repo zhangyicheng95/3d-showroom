@@ -1,0 +1,28 @@
+@defaultSize: 16;
+
+.number-animation-wrap {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+
+    .number-animation {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: auto;
+        transform-origin: 0 0;
+        transition: top 0.2s; //过渡属性的名称 过渡动画所需的时间
+    }
+
+    .number,
+    .number-animation-wrap-hidden {
+        line-height: unit((36/@defaultSize), rem);
+        font-size: unit((36/@defaultSize), rem);
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .number-animation-wrap-hidden {
+        visibility: hidden;
+    }
+}

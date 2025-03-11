@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="7px" height="182px" viewBox="0 0 7 182" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>箭头1</title>
+    <g id="2024-12-20" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="大屏备份" transform="translate(-84.000000, -320.000000)">
+            <g id="1-改变生产关系-短链化交易" transform="translate(84.000000, 304.000000)">
+                <g id="箭头1" transform="translate(0.000000, 16.000000)">
+                    <line x1="3.5" y1="0" x2="3.5" y2="176" id="路径" stroke="#1977D2" stroke-width="2"></line>
+                    <polygon id="矩形" fill="#84C6F0" points="0 176 7 176 3.5 182"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

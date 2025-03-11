@@ -1,0 +1,20 @@
+// ScrollBar.less
+.scrollBox {
+    height: 100%;
+    width: 100%;
+    scroll-snap-type: x mandatory;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+
+    :global {
+        .scroll-page-item {
+            height: 100%;
+            min-height: 100%;
+            max-height: 100%;
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            scroll-snap-align: start;
+        }
+    }
+}
