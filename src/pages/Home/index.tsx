@@ -45,7 +45,7 @@ const HomePage: React.FC<any> = () => {
       objLoader.setPath('models/');
 
       const object = await objLoader.loadAsync('4444444.obj');
-      object.position.y = -0.95;
+      object.position.y = 0;
       object.scale.setScalar(0.01);
 
       object.traverse((child) => {
@@ -69,15 +69,20 @@ const HomePage: React.FC<any> = () => {
     if (!domRef.current) return;
 
     sceneRef.current = new THREE.Scene();
+    sceneRef.current.background = new THREE.Color(0xaaaaaa);
 
     const aspect = domRef.current.clientWidth / domRef.current.clientHeight;
     cameraRef.current = new THREE.PerspectiveCamera(45, aspect, 0.01, 40);
     cameraRef.current.position.z = 8.33;
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    const pointLight = new THREE.PointLight(0xffffff, 15);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 3.0);
+    const pointLight = new THREE.PointLight(0xffffff, 20);
     pointLight.position.set(0, 0, 8.33);
-    sceneRef.current.add(ambientLight, pointLight);
+    
+    const pointLight2 = new THREE.PointLight(0xffffff, 10);
+    pointLight2.position.set(8.33, 0, 0);
+    
+    sceneRef.current.add(ambientLight, pointLight, pointLight2);
 
     rendererRef.current = new THREE.WebGLRenderer({
       antialias: true,
@@ -128,8 +133,8 @@ const HomePage: React.FC<any> = () => {
   }
 
   return (
-    <div className={`flex-box-column ${styles.homePage}`}>
-      <ArtGallery />
+    <div className={`flex-box-column ${styles.homePage}`} ref={domRef}>
+
     </div>
   );
 };
