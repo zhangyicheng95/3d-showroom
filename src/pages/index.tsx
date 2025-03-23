@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import * as _ from 'lodash-es';
-import Login from './Login';
 import HomePage from './Home';
 
 const IndexRouter = () => {
@@ -11,7 +9,7 @@ const IndexRouter = () => {
             <Route
                 path="/"
                 element={
-                    <Login />
+                    <HomePage />
                 }
             />
             <Route

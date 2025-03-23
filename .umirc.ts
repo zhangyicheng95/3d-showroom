@@ -24,11 +24,13 @@ export default defineConfig({
   },
   routes: [
     {
-      path: '/',
+      path: '/home',
       component: './Home',
-      routes: [
-        { path: '/home', component: './Home' },
-      ],
+      layout: false,
+    },
+    {
+      path: '/home2',
+      component: './Home2',
       layout: false,
     },
     {

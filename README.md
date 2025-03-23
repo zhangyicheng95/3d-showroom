@@ -1,4 +1,4 @@
-# 3D数据可视化大屏
+# 3D展馆
 
 # install dependency
 npm install
