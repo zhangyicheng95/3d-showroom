@@ -34,17 +34,20 @@ const HomePage: React.FC<any> = () => {
 
     const manager = new THREE.LoadingManager();
     const mtlLoader = new MTLLoader(manager);
-    mtlLoader.setPath('models/');
+    mtlLoader.setCrossOrigin('anonymous');
+    
+    // 根据环境选择不同的基础URL
+    const baseUrl = 'https://lwyc-1252013544.cos.ap-beijing.myqcloud.com/3D/wgn/';
 
     try {
-      const materials = await mtlLoader.loadAsync('4444444.mtl');
+      const materials = await mtlLoader.loadAsync(`${baseUrl}吴冠南_牵幽上九霄_梅瓶_300件合格.mtl`);
       materials.preload();
 
       const objLoader = new OBJLoader(manager);
+      objLoader.setCrossOrigin('anonymous');
       objLoader.setMaterials(materials);
-      objLoader.setPath('models/');
 
-      const object = await objLoader.loadAsync('4444444.obj');
+      const object = await objLoader.loadAsync(`${baseUrl}吴冠南_牵幽上九霄_梅瓶_300件合格.obj`);
       object.position.y = 0;
       object.scale.setScalar(0.01);
 
@@ -78,10 +81,10 @@ const HomePage: React.FC<any> = () => {
     const ambientLight = new THREE.AmbientLight(0xffffff, 3.0);
     const pointLight = new THREE.PointLight(0xffffff, 20);
     pointLight.position.set(0, 0, 8.33);
-    
+
     const pointLight2 = new THREE.PointLight(0xffffff, 10);
     pointLight2.position.set(8.33, 0, 0);
-    
+
     sceneRef.current.add(ambientLight, pointLight, pointLight2);
 
     rendererRef.current = new THREE.WebGLRenderer({

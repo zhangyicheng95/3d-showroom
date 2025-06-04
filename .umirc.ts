@@ -16,6 +16,11 @@ export default defineConfig({
       changeOrigin: true,
       pathRewrite: { '^/apiv1': '' },
     },
+    '/cos': {
+      target: 'https://lwyc-1252013544.cos.ap-beijing.myqcloud.com',
+      changeOrigin: true,
+      pathRewrite: { '^/cos': '' },
+    },
   },
   layout: {
     layout: 'top',
