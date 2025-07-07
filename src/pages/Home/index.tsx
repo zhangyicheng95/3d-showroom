@@ -5,6 +5,7 @@ import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import ArtGallery from '../ArtGallery';
+import { GetQueryObj } from '@/utils/utils';
 
 const HomePage: React.FC<any> = () => {
   const domRef = useRef<HTMLDivElement>(null);
@@ -37,17 +38,18 @@ const HomePage: React.FC<any> = () => {
     mtlLoader.setCrossOrigin('anonymous');
 
     // 根据环境选择不同的基础URL
-    const baseUrl = 'https://lwyc-1252013544.cos.accelerate.myqcloud.com/3D/lsn/';
-
+    const baseUrl = 'https://lwyc-1252013544.cos.accelerate.myqcloud.com/3D/ciqi/';
+    const params = GetQueryObj(window.location.href);
+    const title = params.title || '李世南_齐白石_箭筒_500件';
     try {
-      const materials = await mtlLoader.loadAsync(`${baseUrl}李世南画_雷珍民题_可得永年_冬瓜瓶500件_有内壁.mtl`);
+      const materials = await mtlLoader.loadAsync(`${baseUrl}${title}.mtl`);
       materials.preload();
 
       const objLoader = new OBJLoader(manager);
       objLoader.setCrossOrigin('anonymous');
       objLoader.setMaterials(materials);
 
-      const object = await objLoader.loadAsync(`${baseUrl}李世南画_雷珍民题_可得永年_冬瓜瓶500件_有内壁.obj`);
+      const object = await objLoader.loadAsync(`${baseUrl}${title}.obj`);
       object.position.y = 0;
       object.scale.setScalar(0.01);
 
