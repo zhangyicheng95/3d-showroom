@@ -158,8 +158,11 @@ const HomePage: React.FC<any> = () => {
     }
 
     const texture = new THREE.CanvasTexture(canvas);
-    // @ts-ignore - colorSpace property exists in newer three versions
-    (texture as any).colorSpace = (THREE as any).SRGBColorSpace || (THREE as any).sRGBEncoding;
+    // Prefer modern colorSpace API if available
+    if ('colorSpace' in texture && (THREE as any).SRGBColorSpace) {
+      // @ts-ignore
+      (texture as any).colorSpace = (THREE as any).SRGBColorSpace;
+    }
     texture.needsUpdate = true;
     backgroundCanvasRef.current = canvas;
     return texture;
