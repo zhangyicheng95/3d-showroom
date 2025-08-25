@@ -19,6 +19,41 @@ const HomePage: React.FC<any> = () => {
   const loadingCompleteRef = useRef<boolean>(false);
   const backgroundCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationFrameRef = useRef<number | null>(null);
+  const loadedObjectRef = useRef<THREE.Object3D | null>(null);
+
+  const frameCameraToObject = (object: THREE.Object3D) => {
+    if (!cameraRef.current || !rendererRef.current) return;
+    const camera = cameraRef.current;
+
+    // Compute bounds and sphere
+    const box = new THREE.Box3().setFromObject(object);
+    const sphere = box.getBoundingSphere(new THREE.Sphere());
+    const center = sphere.center;
+    const radius = Math.max(sphere.radius, 0.0001);
+
+    // Compute needed distance to fit vertically and horizontally
+    const fovY = THREE.MathUtils.degToRad(camera.fov);
+    const fovX = 2 * Math.atan(Math.tan(fovY / 2) * camera.aspect);
+    const distanceY = radius / Math.tan(fovY / 2);
+    const distanceX = radius / Math.tan(fovX / 2);
+    const distance = Math.max(distanceX, distanceY) * 1.15; // margin
+
+    // Position camera along its current forward axis
+    const dir = new THREE.Vector3(0, 0, 1);
+    dir.applyQuaternion(camera.quaternion); // current view direction
+    const newPos = center.clone().add(dir.multiplyScalar(distance));
+    camera.position.copy(newPos);
+
+    // Update near/far to encompass model comfortably
+    camera.near = Math.max(distance / 100, 0.01);
+    camera.far = Math.max(distance * 5, 10);
+    camera.updateProjectionMatrix();
+
+    if (controlsRef.current) {
+      controlsRef.current.target.copy(center);
+      controlsRef.current.update();
+    }
+  };
 
   const generateArtBackgroundTexture = (width: number, height: number) => {
     const canvas = document.createElement('canvas');
@@ -279,6 +314,8 @@ const HomePage: React.FC<any> = () => {
       });
 
       sceneRef.current.add(object);
+      loadedObjectRef.current = object;
+      frameCameraToObject(object);
     } catch (error) {
       console.error('Error loading model:', error);
     }
@@ -373,6 +410,11 @@ const HomePage: React.FC<any> = () => {
           (previous as any).dispose();
         }
       }
+    }
+
+    // Reframe camera to keep object maximized
+    if (loadedObjectRef.current) {
+      frameCameraToObject(loadedObjectRef.current);
     }
   }
 
