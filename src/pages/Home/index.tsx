@@ -159,7 +159,7 @@ const HomePage: React.FC<any> = () => {
         if (bg && typeof (bg as any).dispose === 'function') {
           (bg as any).dispose();
         }
-      } catch (_) {}
+      } catch (_) { }
     }
 
     if (rendererRef.current) {
@@ -170,7 +170,7 @@ const HomePage: React.FC<any> = () => {
           // @ts-ignore
           rendererRef.current.forceContextLoss();
         }
-      } catch (_) {}
+      } catch (_) { }
       rendererRef.current.dispose();
     }
     if (controlsRef.current) {
@@ -183,7 +183,7 @@ const HomePage: React.FC<any> = () => {
     if (domRef.current && rendererRef.current) {
       try {
         domRef.current.removeChild(rendererRef.current.domElement);
-      } catch (_) {}
+      } catch (_) { }
     }
     backgroundCanvasRef.current = null;
     window.removeEventListener('resize', onWindowResize);
@@ -219,7 +219,7 @@ const HomePage: React.FC<any> = () => {
     mtlLoader.setCrossOrigin('anonymous');
 
     // 根据环境选择不同的基础URL
-    const baseUrl = process.env.NODE_ENV === 'development' ? '/' : 'https://oss.allintrip.cn/shanwentou/3D/';
+    const baseUrl = 'https://oss.allintrip.cn/shanwentou/3D/';
     const params = GetQueryObj(window.location.href);
     const title = params.title || '李世南_齐白石_箭筒_500件';
     try {
